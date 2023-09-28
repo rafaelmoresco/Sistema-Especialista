@@ -54,32 +54,31 @@ atributos_vinho(mr, Cor, Tipo, Corpo, Acidez, Aroma) :- (Cor = tinto), (Tipo = s
 atributos_vinho(cr, Cor, Tipo, Corpo, Acidez, Aroma) :- (Cor = rose), (Tipo = seco), (Corpo = leve), (Acidez = baixa), (Aroma = frutado), !. */
 
 
-carne_branca(porco).
-carne_branca(aves).
+carne_branca(assada).
+carne_branca(frita_molho).
+
+carne_intermediaria(porco).
+carne_intermediaria(cervo).
 
 carne_vermelha(grelhada).
 carne_vermelha(assada).
 carne_vermelha(com_molho).
 
-legume(beringela_abobrinha).
-legume(molho_delicado).
-
-massa(mais_gorduroso).
-massa(tomato).
-massa(aglio_olio).
+legume(saladas_secas).
+legume(saladas_molho).
+legume(frutas).
 
 peixe(defumado).
 peixe(frito_assado).
 peixe(vapor).
 
-sobremesa(chocolate).
-sobremesa(fruta).
-
+sobremesa(quente).
+sobremesa(fria).
 
 prato(carne_branca).
+prato(carne_intermediaria).
 prato(carne_vermelha).
 prato(peixe).
-prato(massa).
 prato(sobremesa).
 prato(legumes).
 
@@ -93,7 +92,7 @@ prato(legumes).
 %     ENTÃO cor vinho = Branco CNF 100%
 %           tipo vinho = Seco CNF 100%
 %           corpo do vinho = leve CNF 100%
-sugestao_hidromel(Hidromel, peixes, vapor) :-  melhor_hidromel(Hidromel_cod, branco, seco , leve, _ , _), nome_tipo(Hidromel_cod, Hidromel).
+sugestao_hidromel(Hidromel, peixes, vapor) :-  melhor_hidromel(Hidromel_cod, medio_encorpado , _ , _ , semiseco, _ ), nome_tipo(Hidromel_cod, Hidromel).
 
 %   Regra 2
 %     SE tipo prato = Peixes e frutos do Mar
@@ -101,7 +100,7 @@ sugestao_hidromel(Hidromel, peixes, vapor) :-  melhor_hidromel(Hidromel_cod, bra
 %     ENTÃO aroma vinho = frutado CNF 100%
 %           cor vinho = Rosé CNF 100%
 %           acidez do vinho = pouco ácido CNF 100%
-sugestao_hidromel(Hidromel, peixes, frito_assado) :-  melhor_hidromel(Hidromel_cod, rose , _ , _, baixa , frutado ), nome_tipo(Hidromel_cod, Hidromel).
+sugestao_hidromel(Hidromel, peixes, frito_assado) :-  melhor_hidromel(Hidromel_cod, medio_encorpado , _ , _ , seco , _ ), nome_tipo(Hidromel_cod, Hidromel).
 
 %   Regra 3
 %     SE tipo prato = Peixes e frutos do Mar
@@ -109,7 +108,7 @@ sugestao_hidromel(Hidromel, peixes, frito_assado) :-  melhor_hidromel(Hidromel_c
 %     ENTÃO tipo Hidromel = Seco CNF 100%
 %           cor Hidromel = Branco CNF 100%
 %           acidez do Hidromel = ácido  CNF 100%
-sugestao_hidromel(Hidromel, peixe, defumado) :-  melhor_hidromel(Hidromel_cod, branco, seco , _, alta , _ ), nome_tipo(Hidromel_cod, Hidromel).
+sugestao_hidromel(Hidromel, peixe, defumado) :-  melhor_hidromel(Hidromel_cod, medio_encorpado , especiarias , _, _ , _ ), nome_tipo(Hidromel_cod, Hidromel).
 
 %   Regra 4
 %     SE tipo prato = Legumes
@@ -117,7 +116,7 @@ sugestao_hidromel(Hidromel, peixe, defumado) :-  melhor_hidromel(Hidromel_cod, b
 %     ENTÃO cor Hidromel = Branco CNF 100%
 %           aroma Hidromel = frutado CNF 100%
 %           acidez do Hidromel = pouco ácido CNF 100%
-sugestao_hidromel(Hidromel, legumes, molho_delicado) :-  melhor_hidromel(Hidromel_cod, branco, _ , _, baixa , frutado ), nome_tipo(Hidromel_cod, Hidromel).
+sugestao_hidromel(Hidromel, legumes, saladas_secas) :-  melhor_hidromel(Hidromel_cod, medio_encorpado , _ , _, semiseco , _  ), nome_tipo(Hidromel_cod, Hidromel).
 
 %   Regra 5
 %     SE tipo prato = Legumes
@@ -125,32 +124,9 @@ sugestao_hidromel(Hidromel, legumes, molho_delicado) :-  melhor_hidromel(Hidrome
 %     ENTÃO cor Hidromel = Tinto CNF 100%
 %           tipo Hidromel = Seco CNF 100%
 %           corpo do Hidromel = encorpado CNF 100%
-sugestao_hidromel(Hidromel, legumes, beringela_abobrinha) :-  melhor_hidromel(Hidromel_cod, tinto, seco , encorpado, _ , _ ), nome_tipo(Hidromel_cod, Hidromel).
+sugestao_hidromel(Hidromel, legumes, saladas_molho) :-  melhor_hidromel(Hidromel_cod, medio_encorpado , _ , _ , seco , _ ), nome_tipo(Hidromel_cod, Hidromel).
 
-%   Regra 6
-%     SE tipo prato = Massas
-%     E  Tipo Massa = com molho de tomates
-%     ENTÃO cor Hidromel = Tinto CNF 100%
-%           tipo Hidromel = Seco CNF 100%
-%           acidez do Hidromel = médio ácido CNF 80%
-sugestao_hidromel(Hidromel, massa, tomato) :-  melhor_hidromel(Hidromel_cod, tinto, seco , _,  media , _ ), nome_tipo(Hidromel_cod, Hidromel).
-
-%   Regra 7
-%     SE tipo prato = Massas
-%     E  Tipo Massa = com molho mais gorduroso (carne ou creme de leite)
-%     ENTÃO cor Hidromel = Tinto CNF 100%
-%           corpo do Hidromel = encorpado CNF 100%
-%           acidez do Hidromel = ácido  CNF 100%
-%           tipo Hidromel = Seco CNF 100%
-sugestao_hidromel(Hidromel, massa, gorduroso) :-  melhor_hidromel(Hidromel_cod, tinto, seco , encorpado, alta , _ ), nome_tipo(Hidromel_cod, Hidromel).
-
-%   Regra 8
-%     SE tipo prato = Massas
-%     E  Tipo Massa = ao alho e óleo
-%     ENTÃO cor Hidromel = Tinto CNF 100%
-%           tipo Hidromel = Seco CNF 100%
-%           corpo do Hidromel = leve CNF 100%
-sugestao_hidromel(Hidromel, massa, aglio_olio) :-  melhor_hidromel(Hidromel_cod, tinto, seco , leve, _ , _ ), nome_tipo(Hidromel_cod, Hidromel).
+sugestao_hidromel(Hidromel, legumes, frutas) :-  melhor_hidromel(Hidromel_cod, leve , _ , _ , _ , _ ), nome_tipo(Hidromel_cod, Hidromel).
 
 %   Regra 9
 %     SE tipo prato = Carne branca
@@ -159,18 +135,22 @@ sugestao_hidromel(Hidromel, massa, aglio_olio) :-  melhor_hidromel(Hidromel_cod,
 %     ENTÃO cor Hidromel = Branco CNF 60%
 %           cor Hidromel = Tinto CNF 100%
 %           acidez do Hidromel = médio ácido CNF 100%
-sugestao_hidromel(Hidromel, carne_branca, porco) :-  melhor_hidromel(Hidromel_cod, tinto, _ , _, media, _ ), nome_tipo(Hidromel_cod, Hidromel).
-sugestao_hidromel(Hidromel, carne_branca, porco) :-  melhor_hidromel(Hidromel_cod, branco, _ , _, media, _ ), nome_tipo(Hidromel_cod, Hidromel).
-sugestao_hidromel(Hidromel, carne_branca, aves) :-  melhor_hidromel(Hidromel_cod, tinto, _ , _, media, _ ), nome_tipo(Hidromel_cod, Hidromel).
-sugestao_hidromel(Hidromel, carne_branca, aves) :-  melhor_hidromel(Hidromel_cod, branco, _ , _, media, _ ), nome_tipo(Hidromel_cod, Hidromel).
+sugestao_hidromel(Hidromel, carne_branca, assada) :-  melhor_hidromel(Hidromel_cod, medio_encorpado , _ , _ , seco , _ ), nome_tipo(Hidromel_cod, Hidromel).
+
+
+sugestao_hidromel(Hidromel, carne_branca, frita_molho) :-  melhor_hidromel(Hidromel_cod, medio_encorpado , frutado , _ , _ , _ ), nome_tipo(Hidromel_cod, Hidromel).
+
+sugestao_hidromel(Hidromel, carne_intermediaria, porco) :-  melhor_hidromel(Hidromel_cod, medio_encorpado , _ , _ , semiseco , _ ), nome_tipo(Hidromel_cod, Hidromel).
+sugestao_hidromel(Hidromel, carne_intermediaria, porco) :-  melhor_hidromel(Hidromel_cod, encorpado , frutado , _ , semiseco , _ ), nome_tipo(Hidromel_cod, Hidromel).
+sugestao_hidromel(Hidromel, carne_intermediaria, cervo) :-  melhor_hidromel(Hidromel_cod, medio_encorpado , _ , _ , seco , _ ), nome_tipo(Hidromel_cod, Hidromel).
 
 %   Regra 10
 %     SE tipo prato = Carne vermelha
 %     E  Tipo Carne Vermelha = grellhada
 %     ENTÃO cor Hidromel = Tinto CNF 100%
 %           acidez do Hidromel = médio ácido CNF 100%
-sugestao_hidromel(Hidromel, carne_vermelha, grelhada) :-  melhor_hidromel(Hidromel_cod, tinto, _ , _, media, _ ), nome_tipo(Hidromel_cod, Hidromel).
-
+sugestao_hidromel(Hidromel, carne_vermelha, grelhada) :-  melhor_hidromel(Hidromel_cod, encorpado , frutado , _, _ , _ ), nome_tipo(Hidromel_cod, Hidromel).
+sugestao_hidromel(Hidromel, carne_vermelha, grelhada) :-  melhor_hidromel(Hidromel_cod, encorpado , natural , _, _ , _ ), nome_tipo(Hidromel_cod, Hidromel).
 
 %   Regra 11
 %     SE tipo prato = Carne vermelha
@@ -179,8 +159,8 @@ sugestao_hidromel(Hidromel, carne_vermelha, grelhada) :-  melhor_hidromel(Hidrom
 %     ENTÃO tipo Hidromel = Seco CNF 100%
 %           cor Hidromel = Tinto CNF 100%
 %           corpo do Hidromel = encorpado CNF 100%
-sugestao_hidromel(Hidromel, carne_vermelha, com_molho) :- melhor_hidromel(Hidromel_cod, tinto, seco, encorpado, _ ,_), nome_tipo(Hidromel_cod, Hidromel).
-sugestao_hidromel(Hidromel, carne_vermelha, assada) :- melhor_hidromel(Hidromel_cod, tinto, seco, encorpado, _ ,_), nome_tipo(Hidromel_cod, Hidromel).
+sugestao_hidromel(Hidromel, carne_vermelha, com_molho) :- melhor_hidromel(Hidromel_cod, encorpado , natural , _, _ , _ ), nome_tipo(Hidromel_cod, Hidromel).
+sugestao_hidromel(Hidromel, carne_vermelha, assada) :- melhor_hidromel(Hidromel_cod, encorpado , frutado , _, _ , _ ), nome_tipo(Hidromel_cod, Hidromel).
 
 %   Regra 12
 %     SE tipo prato = Sobremesas
@@ -188,96 +168,10 @@ sugestao_hidromel(Hidromel, carne_vermelha, assada) :- melhor_hidromel(Hidromel_
 %     ENTÃO cor Hidromel = Branco CNF 100%
 %           cor Hidromel = Rosé CNF 80%
 %           aroma Hidromel = frutado CNF 100%
-sugestao_hidromel(Hidromel, sobremesa, fruta) :-  melhor_hidromel(Hidromel_cod, branco, _ , _, _, frutado ), nome_tipo(Hidromel_cod, Hidromel).
-sugestao_hidromel(Hidromel, sobremesa, fruta) :-  melhor_hidromel(Hidromel_cod, rose, _ , _, _, frutado ), nome_tipo(Hidromel_cod, Hidromel).
+sugestao_hidromel(Hidromel, sobremesa, quente) :-  melhor_hidromel(Hidromel_cod, encorpado , natural , _, _ , _ ), nome_tipo(Hidromel_cod, Hidromel).
 
+sugestao_hidromel(Hidromel, sobremesa, fria) :-  melhor_hidromel(Hidromel_cod, leve , _ , _, _ , _  ), nome_tipo(Hidromel_cod, Hidromel).
 
-%   Regra 13
-%     SE cor vinho = Branco
-%     E  tipo vinho = Seco
-%     E  corpo do vinho = leve
-%     ENTÃO Sugestão de vinho = Bordeaux blanc  CNF 100%
-melhor_hidromel(bb, Cor, Tipo, Corpo, Acidez, Aroma) :- (Cor = branco), (Tipo = seco), (Corpo = leve),!.
-
-%   Regra 14
-%     SE cor vinho = Tinto
-%     E  tipo vinho = Seco
-%     E  corpo do vinho = leve
-%     ENTÃO Sugestão de vinho = Merlot CNF 100%
-melhor_hidromel(mr, Cor, Tipo, Corpo, Acidez, Aroma) :- (Cor = tinto), (Tipo = seco), (Corpo = leve),!.
-
-%   Regra 15
-%     SE cor vinho = Branco
-%     E  tipo vinho = Seco
-%     E  corpo do vinho = médio encorpado
-%     ENTÃO Sugestão de vinho = Sauvignon Blanc CNF 100%
-melhor_hidromel(sb, Cor, Tipo, Corpo, Acidez, Aroma) :- (Cor = branco), (Tipo = seco), (Corpo = medio_encorpado),!.
-
-%   Regra 16
-%     SE cor vinho = Tinto
-%     E  tipo vinho = Seco
-%     E  corpo do vinho = médio encorpado
-%     ENTÃO Sugestão de vinho = Chianti novo CNF 100%
-%           Sugestão de vinho = Merlot CNF 100%
-melhor_hidromel(cn, Cor, Tipo, Corpo, Acidez, Aroma) :- (Cor = tinto), (Tipo = seco), (Corpo = medio_encorpado).
-melhor_hidromel(mr, Cor, Tipo, Corpo, Acidez, Aroma) :- (Cor = tinto), (Tipo = seco), (Corpo = medio_encorpado),!.
-
-%   Regra 17
-%     SE cor vinho = Tinto
-%     E  tipo vinho = Seco
-%     E  corpo do vinho = encorpado
-%     ENTÃO Sugestão de vinho = Cabernet Sauvignon  CNF 100%
-%           Sugestão de vinho = Chianti Reserva  CNF 100%
-%           Sugestão de vinho = Pinot Noir  CNF 100%
-melhor_hidromel(cs, Cor, Tipo, Corpo, Acidez, Aroma) :- (Cor = tinto), (Tipo = seco), (Corpo = encorpado).
-melhor_hidromel(ch, Cor, Tipo, Corpo, Acidez, Aroma) :- (Cor = tinto), (Tipo = seco), (Corpo = encorpado).
-melhor_hidromel(pn, Cor, Tipo, Corpo, Acidez, Aroma) :- (Cor = tinto), (Tipo = seco), (Corpo = encorpado),!.
-
-
-%   Regra 18
-%     SE cor vinho = Tinto
-%     E  acidez do vinho = ácido
-%     ENTÃO Sugestão de vinho = Pinot Noir  CNF 100%
-%           Sugestão de vinho = Chianti Reserva  CNF 100%
-%           Sugestão de vinho = Cabernet Sauvignon  CNF 100%
-melhor_hidromel(pn, Cor, Tipo, Corpo, Acidez, Aroma) :- (Cor = tinto), (Acidez = alta).
-melhor_hidromel(ch, Cor, Tipo, Corpo, Acidez, Aroma) :- (Cor = tinto), (Acidez = alta).
-melhor_hidromel(cs, Cor, Tipo, Corpo, Acidez, Aroma) :- (Cor = tinto), (Acidez = alta),!.
-
-%   Regra 19
-%     SE cor vinho = Branco
-%     E  tipo vinho = Seco
-%     E  acidez do vinho = ácido
-%     ENTÃO Sugestão de vinho = Sauvignon Blanc CNF 100%
-melhor_hidromel(sb, Cor, Tipo, Corpo, Acidez, Aroma) :- (Cor = branco), (Tipo = seco), (Acidez = alta),!.
-
-%   Regra 20
-%     SE cor vinho = Tinto
-%     E  acidez do vinho = médio ácido
-%     ENTÃO Sugestão de vinho = Chianti novo CNF 100%
-%           Sugestão de vinho = Merlot CNF 100%
-melhor_hidromel(cn, Cor, Tipo, Corpo, Acidez, Aroma) :- (Cor = tinto), (Acidez = media).
-melhor_hidromel(mr, Cor, Tipo, Corpo, Acidez, Aroma) :- (Cor = tinto), (Acidez = media),!.
-
-
-%   Regra 21
-%     SE cor vinho = Branco
-%     E  tipo vinho = Seco
-%     E  acidez do vinho = médio ácido
-%     ENTÃO Sugestão de vinho = Bordeaux blanc  CNF 100%
-melhor_hidromel(bb, Cor, Tipo, Corpo, Acidez, Aroma) :- (Cor = branco), (Tipo = seco), (Acidez = media),!.
-
-%   Regra 22
-%     SE cor vinho = Rosé
-%     E  aroma vinho = frutado
-%     ENTÃO Sugestão de vinho = Rosé de Provence  CNF 100%
-melhor_hidromel(rp, Cor, Tipo, Corpo, Acidez, Aroma) :- (Cor = rose), (Aroma = frutado),!.
-
-%   Regra 23
-%     SE cor vinho = Branco
-%     E  aroma vinho = frutado
-%     ENTÃO Sugestão de vinho = Riesling CNF 100%
-melhor_hidromel(rs, Cor, Tipo, Corpo, Acidez, Aroma) :- (Cor = branco), (Aroma = frutado),!.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%                                      %%    
@@ -328,7 +222,7 @@ melhor_hidromel(rs, Cor, Tipo, Corpo, Acidez, Aroma) :- (Cor = branco), (Aroma =
 
 % Exemplo de execução:
 % Comando para pedir sugestão de vinho ao comer massa com molho de tomate:
-sugestao_hidromel(Hidromel, massa, tomato).
+sugestao_hidromel(Hidromel, carne_intermediaria, cervo).
 % Output:
 %   Vinho = "Merlot" ;
 %   true.
