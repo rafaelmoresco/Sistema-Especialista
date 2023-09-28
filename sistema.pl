@@ -1,8 +1,14 @@
-tipo(tradicional).
-tipo(bochet).
-tipo(braggot).
-tipo(melomel).
-tipo(metheglin).
+% Sistema recomendador de Hidromel
+% Eduardo Borges Siqueira, #mat
+% Rafael Moresco Vieira, 19200435
+
+tipo_Corpo(leve).
+tipo_Corpo(medio_encorpado).
+tipo_Corpo(encorpado).
+
+tipo_Aroma(frutado).
+tipo_Aroma(especiarias).
+tipo_Aroma(natural).
 
 tipo_Carbonacao(espumante).
 tipo_Carbonacao(still).
@@ -13,52 +19,13 @@ tipo_Docura(semiseco).
 tipo_TeorAlcool(short).
 tipo_TeorAlcool(great).
 
-carbonacao(tradicional, still).
-carbonacao(brochet, still).
-carbonacao(braggot, espumante).
-carbonacao(melomel, still).
-carbonacao(metheglin, still).
+nome_tipo(tradicional, "Tradicional").
+nome_tipo(bochet, "Bochet").
+nome_tipo(braggot, "Braggot").
+nome_tipo(melomel, "Melomel").
+nome_tipo(metheglin, "Metheglin").
 
-docura(tradicional, semiseco).
-docura(brochet, semiseco).
-docura(braggot, seco).
-docura(melomel, semiseco).
-docura(metheglin, seco).
-
-teor_Alcool(tradicional, great).
-teor_Alcool(brochet, great).
-teor_Alcool(braggot, short).
-teor_Alcool(melomel, great).
-teor_Alcool(metheglin, great).
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%  Construção de Sistema Especialista para recomendar vinhos. %%
-%%  Dupla: Lucas Verdade e Lucas Zacchi.                       %%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-
-
-acidez(baixa).
-acidez(media).
-acidez(alta).
-
-corpo(leve).
-corpo(medio_encorpado).
-corpo(encorpado).
-
-aroma(frutado).
-aroma(nao_frutado).
-
-tipo(seco).
-tipo(demi_seco).
-
-cor(rose).
-cor(tinto).
-cor(branco).
-
-
-nome_vinho(bb, "Bordeaux Blanc").
+/* nome_vinho(bb, "Bordeaux Blanc").
 nome_vinho(sb, "Sauvignon Blanc").
 nome_vinho(rs, "Riesling").
 nome_vinho(rp, "Rosé de Provence").
@@ -67,9 +34,15 @@ nome_vinho(cn, "Chianti Novo").
 nome_vinho(ch, "Chianti Reserva").
 nome_vinho(cs, "Cabernet Sauvignon").
 nome_vinho(mr, "Merlot").
-nome_vinho(cr, "Champagne Rosé").
+nome_vinho(cr, "Champagne Rosé"). */
 
-atributos_vinho(bb, Cor, Tipo, Corpo, Acidez, Aroma) :- (Cor = branco), (Tipo = seco), (Corpo = leve), (Acidez = media), (Aroma = nao_frutado),!.
+atributos_tipo(tradicional, Corpo, Aroma, Carbonacao, Docura, Teor) :- (Corpo = medio_encorpado), (Aroma = natural), (Carbonacao = still), (Docura = semiseco), (Teor = great),!.
+atributos_tipo(bochet, Corpo, Aroma, Carbonacao, Docura, Teor) :- (Corpo = encorpado), (Aroma = natural), (Carbonacao = still), (Docura = semiseco), (Teor = great),!.
+atributos_tipo(braggot, Corpo, Aroma, Carbonacao, Docura, Teor) :- (Corpo = leve), (Aroma = natural), (Carbonacao = espumante), (Docura = seco), (Teor = short),!.
+atributos_tipo(melomel, Corpo, Aroma, Carbonacao, Docura, Teor) :- (Corpo = encorpado), (Aroma = frutado), (Carbonacao = still), (Docura = semiseco), (Teor = great),!.
+atributos_tipo(metheglin, Corpo, Aroma, Carbonacao, Docura, Teor) :- (Corpo = medio_encorpado), (Aroma = especiarias), (Carbonacao = still), (Docura = seco), (Teor = great),!.
+
+/* atributos_vinho(bb, Cor, Tipo, Corpo, Acidez, Aroma) :- (Cor = branco), (Tipo = seco), (Corpo = leve), (Acidez = media), (Aroma = nao_frutado),!.
 atributos_vinho(sb, Cor, Tipo, Corpo, Acidez, Aroma) :- (Cor = branco), (Tipo = seco), (Corpo = leve), (Acidez = alta), (Aroma = nao_frutado), !.
 atributos_vinho(rs, Cor, Tipo, Corpo, Acidez, Aroma) :- (Cor = branco), (Tipo = demi_seco), (Corpo = leve), (Acidez = baixa), (Aroma = frutado), !.
 atributos_vinho(rp, Cor, Tipo, Corpo, Acidez, Aroma) :- (Cor = rose), (Tipo = demi_seco), (Corpo = leve), (Acidez = baixa), (Aroma = frutado), !.
@@ -78,7 +51,7 @@ atributos_vinho(cn, Cor, Tipo, Corpo, Acidez, Aroma) :- (Cor = tinto), (Tipo = s
 atributos_vinho(ch, Cor, Tipo, Corpo, Acidez, Aroma) :- (Cor = tinto), (Tipo = seco), (Corpo = encorpado), (Acidez = baixa), (Aroma = nao_frutado), !.
 atributos_vinho(cs, Cor, Tipo, Corpo, Acidez, Aroma) :- (Cor = tinto), (Tipo = seco), (Corpo = encorpado), (Acidez = alta), (Aroma = nao_frutado), !.
 atributos_vinho(mr, Cor, Tipo, Corpo, Acidez, Aroma) :- (Cor = tinto), (Tipo = seco), (Corpo = medio_encorpado), (Acidez = media), (Aroma = nao_frutado), !.
-atributos_vinho(cr, Cor, Tipo, Corpo, Acidez, Aroma) :- (Cor = rose), (Tipo = seco), (Corpo = leve), (Acidez = baixa), (Aroma = frutado), !.
+atributos_vinho(cr, Cor, Tipo, Corpo, Acidez, Aroma) :- (Cor = rose), (Tipo = seco), (Corpo = leve), (Acidez = baixa), (Aroma = frutado), !. */
 
 
 carne_branca(porco).
