@@ -328,7 +328,7 @@ melhor_hidromel(rs, Cor, Tipo, Corpo, Acidez, Aroma) :- (Cor = branco), (Aroma =
 
 % Exemplo de execução:
 % Comando para pedir sugestão de vinho ao comer massa com molho de tomate:
-sugestao_vinho(Vinho, massa, tomato).
+sugestao_hidromel(Hidromel, massa, tomato).
 % Output:
 %   Vinho = "Merlot" ;
 %   true.
