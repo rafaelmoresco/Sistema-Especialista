@@ -44,6 +44,7 @@ carne_branca(frita_molho).
 
 % Tipos de carne intermediária
 carne_intermediaria(porco).
+carne_intermediaria(porco_agridoce).
 carne_intermediaria(cervo).
 
 % Tipos de carne vermelha
@@ -81,7 +82,7 @@ prato(legumes).
 %     ENTÃO cor vinho = Branco CNF 100%
 %           tipo vinho = Seco CNF 100%
 %           corpo do vinho = leve CNF 100%
-sugestao_hidromel(Hidromel, peixes, vapor) :-  melhor_hidromel(Hidromel_cod, medio_encorpado , _ , _ , semiseco, _ ), nome_tipo(Hidromel_cod, Hidromel).
+sugestao_hidromel(Hidromel, peixes, vapor) :-  melhor_hidromel(Hidromel_cod, leve , _ , _ , seco, _ ), nome_tipo(Hidromel_cod, Hidromel).
 
 %   Regra 2
 %     SE tipo prato = Peixes e frutos do Mar
@@ -89,7 +90,7 @@ sugestao_hidromel(Hidromel, peixes, vapor) :-  melhor_hidromel(Hidromel_cod, med
 %     ENTÃO aroma vinho = frutado CNF 100%
 %           cor vinho = Rosé CNF 100%
 %           acidez do vinho = pouco ácido CNF 100%
-sugestao_hidromel(Hidromel, peixes, frito_assado) :-  melhor_hidromel(Hidromel_cod, medio_encorpado , _ , _ , seco , _ ), nome_tipo(Hidromel_cod, Hidromel).
+sugestao_hidromel(Hidromel, peixes, frito_assado) :-  melhor_hidromel(Hidromel_cod, medio_encorpado , especiarias , _ , _ , _ ), nome_tipo(Hidromel_cod, Hidromel).
 
 %   Regra 3
 %     SE tipo prato = Peixes e frutos do Mar
@@ -97,7 +98,7 @@ sugestao_hidromel(Hidromel, peixes, frito_assado) :-  melhor_hidromel(Hidromel_c
 %     ENTÃO tipo Hidromel = Seco CNF 100%
 %           cor Hidromel = Branco CNF 100%
 %           acidez do Hidromel = ácido  CNF 100%
-sugestao_hidromel(Hidromel, peixe, defumado) :-  melhor_hidromel(Hidromel_cod, medio_encorpado , especiarias , _, _ , _ ), nome_tipo(Hidromel_cod, Hidromel).
+sugestao_hidromel(Hidromel, peixes, defumado) :-  melhor_hidromel(Hidromel_cod, medio_encorpado , natural , _, _ , _ ), nome_tipo(Hidromel_cod, Hidromel).
 
 %   Regra 4
 %     SE tipo prato = Legumes
@@ -127,10 +128,10 @@ sugestao_hidromel(Hidromel, legumes, frutas) :-  melhor_hidromel(Hidromel_cod, l
 sugestao_hidromel(Hidromel, carne_branca, assada) :-  melhor_hidromel(Hidromel_cod, medio_encorpado , _ , _ , seco , _ ), nome_tipo(Hidromel_cod, Hidromel).
 
 
-sugestao_hidromel(Hidromel, carne_branca, frita_molho) :-  melhor_hidromel(Hidromel_cod, medio_encorpado , frutado , _ , _ , _ ), nome_tipo(Hidromel_cod, Hidromel).
+sugestao_hidromel(Hidromel, carne_branca, frita_molho) :-  melhor_hidromel(Hidromel_cod, medio_encorpado , _ , _ , semiseco , _ ), nome_tipo(Hidromel_cod, Hidromel).
 
 sugestao_hidromel(Hidromel, carne_intermediaria, porco) :-  melhor_hidromel(Hidromel_cod, medio_encorpado , _ , _ , semiseco , _ ), nome_tipo(Hidromel_cod, Hidromel).
-sugestao_hidromel(Hidromel, carne_intermediaria, porco) :-  melhor_hidromel(Hidromel_cod, encorpado , frutado , _ , semiseco , _ ), nome_tipo(Hidromel_cod, Hidromel).
+sugestao_hidromel(Hidromel, carne_intermediaria, porco_agridoce) :-  melhor_hidromel(Hidromel_cod, encorpado , frutado , _ , semiseco , _ ), nome_tipo(Hidromel_cod, Hidromel).
 sugestao_hidromel(Hidromel, carne_intermediaria, cervo) :-  melhor_hidromel(Hidromel_cod, medio_encorpado , _ , _ , seco , _ ), nome_tipo(Hidromel_cod, Hidromel).
 
 %   Regra 10
@@ -165,15 +166,15 @@ sugestao_hidromel(Hidromel, sobremesa, fria) :-  melhor_hidromel(Hidromel_cod, l
 % CORPO AROMA CARBONACAO DOCURA TEOR_ALCOOL
 
 
-melhor_hidromel(tradicional, Corpo, Aroma, Carbonacao, Docura, Teor) :- (Corpo = medio_encorpado), (Aroma = natural), (Carbonacao = still),!.
+melhor_hidromel(tradicional, Corpo, Aroma, Carbonacao, Docura, Teor) :- (Corpo = medio_encorpado), (Aroma = natural), (Carbonacao = still), (Docura = semiseco), (Teor = great),!.
 
-melhor_hidromel(bochet, Corpo, Aroma, Carbonacao, Docura, Teor) :- (Corpo = encorpado), (Aroma = natural), (Carbonacao = still),!.
+melhor_hidromel(bochet, Corpo, Aroma, Carbonacao, Docura, Teor) :- (Corpo = encorpado), (Aroma = natural), (Carbonacao = still), (Docura = semiseco), (Teor = great),!.
 
-melhor_hidromel(braggot, Corpo, Aroma, Carbonacao, Docura, Teor) :- (Corpo = leve), (Aroma = natural), (Carbonacao = espumante), (Docura = seco),!.
+melhor_hidromel(braggot, Corpo, Aroma, Carbonacao, Docura, Teor) :- (Corpo = leve), (Aroma = natural), (Carbonacao = espumante), (Docura = seco), (Teor = short),!.
 
-melhor_hidromel(melomel, Corpo, Aroma, Carbonacao, Docura, Teor) :- (Corpo = encorpado), (Aroma = frutado), (Carbonacao = still).
+melhor_hidromel(melomel, Corpo, Aroma, Carbonacao, Docura, Teor) :- (Corpo = encorpado), (Aroma = frutado), (Carbonacao = still), (Docura = semiseco), (Teor = great),!.
 
-melhor_hidromel(metheglin, Corpo, Aroma, Carbonacao, Docura, Teor) :- (Corpo = medio_encorpado), (Aroma = especiarias), (Carbonacao = still),!.
+melhor_hidromel(metheglin, Corpo, Aroma, Carbonacao, Docura, Teor) :- (Corpo = medio_encorpado), (Aroma = especiarias), (Carbonacao = still), (Docura = seco), (Teor = great),!.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -200,6 +201,7 @@ melhor_hidromel(metheglin, Corpo, Aroma, Carbonacao, Docura, Teor) :- (Corpo = m
 
 % Para carne_intermediaria existe os seguintes subtipos:
 %  - porco
+%  - porco_agridoce
 %  - cervo
 
 % Para carne_vermelha existe os seguintes subtipos:
