@@ -162,6 +162,81 @@ sugestao_hidromel(Hidromel, sobremesa, quente) :-  melhor_hidromel(Hidromel_cod,
 sugestao_hidromel(Hidromel, sobremesa, fria) :-  melhor_hidromel(Hidromel_cod, leve , _ , _, _ , _  ), nome_tipo(Hidromel_cod, Hidromel).
 
 
+%   Regra 13
+%     SE cor vinho = Branco
+%     E  tipo vinho = Seco
+%     E  corpo do vinho = leve
+%     ENTÃO Sugestão de vinho = Bordeaux blanc  CNF 100%
+melhor_hidromel(bb, Cor, Tipo, Corpo, Acidez, Aroma) :- (Cor = branco), (Tipo = seco), (Corpo = leve),!.
+%   Regra 14
+%     SE cor vinho = Tinto
+%     E  tipo vinho = Seco
+%     E  corpo do vinho = leve
+%     ENTÃO Sugestão de vinho = Merlot CNF 100%
+melhor_hidromel(mr, Cor, Tipo, Corpo, Acidez, Aroma) :- (Cor = tinto), (Tipo = seco), (Corpo = leve),!.
+%   Regra 15
+%     SE cor vinho = Branco
+%     E  tipo vinho = Seco
+%     E  corpo do vinho = médio encorpado
+%     ENTÃO Sugestão de vinho = Sauvignon Blanc CNF 100%
+melhor_hidromel(sb, Cor, Tipo, Corpo, Acidez, Aroma) :- (Cor = branco), (Tipo = seco), (Corpo = medio_encorpado),!.
+%   Regra 16
+%     SE cor vinho = Tinto
+%     E  tipo vinho = Seco
+%     E  corpo do vinho = médio encorpado
+%     ENTÃO Sugestão de vinho = Chianti novo CNF 100%
+%           Sugestão de vinho = Merlot CNF 100%
+melhor_hidromel(cn, Cor, Tipo, Corpo, Acidez, Aroma) :- (Cor = tinto), (Tipo = seco), (Corpo = medio_encorpado).
+melhor_hidromel(mr, Cor, Tipo, Corpo, Acidez, Aroma) :- (Cor = tinto), (Tipo = seco), (Corpo = medio_encorpado),!.
+%   Regra 17
+%     SE cor vinho = Tinto
+%     E  tipo vinho = Seco
+%     E  corpo do vinho = encorpado
+%     ENTÃO Sugestão de vinho = Cabernet Sauvignon  CNF 100%
+%           Sugestão de vinho = Chianti Reserva  CNF 100%
+%           Sugestão de vinho = Pinot Noir  CNF 100%
+melhor_hidromel(cs, Cor, Tipo, Corpo, Acidez, Aroma) :- (Cor = tinto), (Tipo = seco), (Corpo = encorpado).
+melhor_hidromel(ch, Cor, Tipo, Corpo, Acidez, Aroma) :- (Cor = tinto), (Tipo = seco), (Corpo = encorpado).
+melhor_hidromel(pn, Cor, Tipo, Corpo, Acidez, Aroma) :- (Cor = tinto), (Tipo = seco), (Corpo = encorpado),!.
+%   Regra 18
+%     SE cor vinho = Tinto
+%     E  acidez do vinho = ácido
+%     ENTÃO Sugestão de vinho = Pinot Noir  CNF 100%
+%           Sugestão de vinho = Chianti Reserva  CNF 100%
+%           Sugestão de vinho = Cabernet Sauvignon  CNF 100%
+melhor_hidromel(pn, Cor, Tipo, Corpo, Acidez, Aroma) :- (Cor = tinto), (Acidez = alta).
+melhor_hidromel(ch, Cor, Tipo, Corpo, Acidez, Aroma) :- (Cor = tinto), (Acidez = alta).
+melhor_hidromel(cs, Cor, Tipo, Corpo, Acidez, Aroma) :- (Cor = tinto), (Acidez = alta),!.
+%   Regra 19
+%     SE cor vinho = Branco
+%     E  tipo vinho = Seco
+%     E  acidez do vinho = ácido
+%     ENTÃO Sugestão de vinho = Sauvignon Blanc CNF 100%
+melhor_hidromel(sb, Cor, Tipo, Corpo, Acidez, Aroma) :- (Cor = branco), (Tipo = seco), (Acidez = alta),!.
+%   Regra 20
+%     SE cor vinho = Tinto
+%     E  acidez do vinho = médio ácido
+%     ENTÃO Sugestão de vinho = Chianti novo CNF 100%
+%           Sugestão de vinho = Merlot CNF 100%
+melhor_hidromel(cn, Cor, Tipo, Corpo, Acidez, Aroma) :- (Cor = tinto), (Acidez = media).
+melhor_hidromel(mr, Cor, Tipo, Corpo, Acidez, Aroma) :- (Cor = tinto), (Acidez = media),!.
+%   Regra 21
+%     SE cor vinho = Branco
+%     E  tipo vinho = Seco
+%     E  acidez do vinho = médio ácido
+%     ENTÃO Sugestão de vinho = Bordeaux blanc  CNF 100%
+melhor_hidromel(bb, Cor, Tipo, Corpo, Acidez, Aroma) :- (Cor = branco), (Tipo = seco), (Acidez = media),!.
+%   Regra 22
+%     SE cor vinho = Rosé
+%     E  aroma vinho = frutado
+%     ENTÃO Sugestão de vinho = Rosé de Provence  CNF 100%
+melhor_hidromel(rp, Cor, Tipo, Corpo, Acidez, Aroma) :- (Cor = rose), (Aroma = frutado),!.
+%   Regra 23
+%     SE cor vinho = Branco
+%     E  aroma vinho = frutado
+%     ENTÃO Sugestão de vinho = Riesling CNF 100%
+melhor_hidromel(rs, Cor, Tipo, Corpo, Acidez, Aroma) :- (Cor = branco), (Aroma = frutado),!.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%                                      %%    
 %%    %%   %%    %%%%%%%%    %%%%%%%    %%
