@@ -181,27 +181,31 @@ sugestao_hidromel(Hidromel, sobremesa, fria) :-  melhor_hidromel(Hidromel_cod, l
 % E para cada prato existe um subtipo.
 
 % Para carne_branca existe os seguintes subtipos:
+%  - assada
+%  - frita_molho
+
+% Para carne_intermediaria existe os seguintes subtipos:
 %  - porco
-%  - aves
+%  - cervo
 
 % Para carne_vermelha existe os seguintes subtipos:
 %  - grelhada
 %  - assada
 %  - com_molho
 
+% Para legumes existe os seguintes subtipos:
+%  - saladas_secas
+%  - saladas_molho
+%  - frutas
+
 % Para peixe existe os seguintes subtipos:
 %  - defumado
 %  - frito_assado
 %  - vapor
 
-% Para massa existe os seguintes subtipos:
-%  - aglio_olio
-%  - mais_gorduroso
-%  - tomato
-
 % Para sobremesa existe os seguintes subtipos:
-%  - fruta
-%  - chocolate
+%  - quente
+%  - fria
 
 % Para legumes existe os seguintes subtipos:
 %  - beringela_abobrinha
