@@ -164,32 +164,16 @@ sugestao_hidromel(Hidromel, sobremesa, fria) :-  melhor_hidromel(Hidromel_cod, l
 
 % CORPO AROMA CARBONACAO DOCURA TEOR_ALCOOL
 
-%   Regra 13
-%     SE cor vinho = Branco
-%     E  tipo vinho = Seco
-%     E  corpo do vinho = leve
-%     ENTÃO Sugestão de vinho = Bordeaux blanc  CNF 100%
-melhor_hidromel(bb, Corpo, Aroma, Carbonacao, Docura, Teor) :- (Cor = branco), (Tipo = seco), (Corpo = leve),!.
-%   Regra 14
-%     SE cor vinho = Tinto
-%     E  tipo vinho = Seco
-%     E  corpo do vinho = leve
-%     ENTÃO Sugestão de vinho = Merlot CNF 100%
-melhor_hidromel(mr, Corpo, Aroma, Carbonacao, Docura, Teor) :- (Cor = tinto), (Tipo = seco), (Corpo = leve),!.
-%   Regra 15
-%     SE cor vinho = Branco
-%     E  tipo vinho = Seco
-%     E  corpo do vinho = médio encorpado
-%     ENTÃO Sugestão de vinho = Sauvignon Blanc CNF 100%
-melhor_hidromel(sb, Corpo, Aroma, Carbonacao, Docura, Teor) :- (Cor = branco), (Tipo = seco), (Corpo = medio_encorpado),!.
-%   Regra 16
-%     SE cor vinho = Tinto
-%     E  tipo vinho = Seco
-%     E  corpo do vinho = médio encorpado
-%     ENTÃO Sugestão de vinho = Chianti novo CNF 100%
-%           Sugestão de vinho = Merlot CNF 100%
-melhor_hidromel(cn, Corpo, Aroma, Carbonacao, Docura, Teor) :- (Cor = tinto), (Tipo = seco), (Corpo = medio_encorpado).
-melhor_hidromel(mr, Corpo, Aroma, Carbonacao, Docura, Teor) :- (Cor = tinto), (Tipo = seco), (Corpo = medio_encorpado),!.
+
+melhor_hidromel(tradicional, Corpo, Aroma, Carbonacao, Docura, Teor) :- (Corpo = medio_encorpado), (Aroma = natural), (Carbonacao = still),!.
+
+melhor_hidromel(bochet, Corpo, Aroma, Carbonacao, Docura, Teor) :- (Corpo = encorpado), (Aroma = natural), (Carbonacao = still),!.
+
+melhor_hidromel(braggot, Corpo, Aroma, Carbonacao, Docura, Teor) :- (Corpo = leve), (Aroma = natural), (Carbonacao = espumante), (Docura = seco),!.
+
+melhor_hidromel(melomel, Corpo, Aroma, Carbonacao, Docura, Teor) :- (Corpo = encorpado), (Aroma = frutado), (Carbonacao = still).
+
+melhor_hidromel(metheglin, Corpo, Aroma, Carbonacao, Docura, Teor) :- (Corpo = medio_encorpado), (Aroma = especiarias), (Carbonacao = still),!.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
